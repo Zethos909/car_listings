@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acura Listings</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Acura Listings</h1>
+        <!-- Listing Filter Form -->
+        <form method="GET" class="mb-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+        
+        <!-- Listings -->
+        <div class="row">
+            {% for listing in listings %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ listing.image_url }}" class="card-img-top" alt="Listing Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.make }} {{ listing.model }}</h5>
+                        <p class="card-text">{{ listing.price }}</p>
+                        <a href="{{ listing.detail_url }}" target="_blank" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery link here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
