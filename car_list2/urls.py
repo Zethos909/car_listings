@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from car_list2.models.views import listings_view
+from car_list2.models.views import listings_view, login, register
+
 
 urlpatterns = [
     path('', listings_view, name='listings'),
+    path('login/', login, name = 'login'),
+    path('register/', register, name = 'register')
 ]
 
 # Serve static files during development
