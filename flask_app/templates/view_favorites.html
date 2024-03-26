@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>My Favorites</h1>
+        {% if favorite_listings %}
+            <ul>
+                {% for listing in favorite_listings %}
+                    <li>
+                        <img src="{{ listing.primaryPhotoUrl }}" alt="Car Photo" style="width: 100px; height: auto;">
+                        <strong>{{ listing.make }} {{ listing.model }}</strong>
+                        <p>Price: {{ listing.price }}</p>
+                        <p>Mileage: {{ listing.mileage }}</p>
+                        <!-- Add more details as needed -->
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No favorites yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Wishlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Wishlist</h1>
+        <form action="{{ url_for('wishlist') }}" method="POST">
+            <div class="form-group">
+                <label for="make">Make:</label>
+                <input type="text" class="form-control" id="make" name="make" required>
+            </div>
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <input type="text" class="form-control" id="model" name="model" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <!-- Button to view wishlist -->
+        <form action="{{ url_for('view_wishlist') }}" method="GET">
+            <button type="submit" class="btn btn-primary mt-3">View Wishlist</button>
+        </form>
+    </div>
+</body>
+</html>
+

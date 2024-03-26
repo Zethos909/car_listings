@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Wishlist</h1>
+        <!-- Add a button to navigate to the dashboard -->
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary mb-3">Dashboard</a>
+
+        {% if wishlist %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Actions</th>  <!-- Added a new column for actions -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in wishlist %}
+                <tr>
+                    <td>{{ car.make }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>
+                        <a href="{{ url_for('modify_wishlist', listing_id=car.id) }}" class="btn btn-primary">Modify</a>
+                    </td>  <!-- Modify button -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No items found in wishlist.</p>
+    {% endif %}
+    </div>
+</body>
+</html>
+
