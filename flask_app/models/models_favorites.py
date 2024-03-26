@@ -12,7 +12,6 @@ class Favorites:
 
     @staticmethod
     def get_listing_favorites(api_listing_id):
-        # Make an API call to retrieve favorites associated with the given API listing ID
         api_endpoint = f'https://example.com/api/favorites?listing_id={api_listing_id}'
         response = requests.get(api_endpoint)
 

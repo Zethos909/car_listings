@@ -3,22 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist</title>
+    <title>View Wishlist</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .container {
+            padding-top: 20px;
+        }
+
+        .table {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #495057;
+            color: #fff;
+        }
+
+        .table th {
+            background-color: #212529;
+        }
+
+        .table tr:hover {
+            background-color: #495057;
+        }
+
+        .btn-primary {
+            background-color: #495057;
+            border-color: #495057;
+        }
+
+        .btn-primary:hover {
+            background-color: #343a40;
+            border-color: #343a40;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #b80000;
+            border-color: #b80000;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Wishlist</h1>
-        <!-- Add a button to navigate to the dashboard -->
-        <a href="{{ url_for('dashboard') }}" class="btn btn-primary mb-3">Dashboard</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">View Wishlist</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        {% if wishlist %}
-        <table class="table">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <form class="d-flex">
+                    <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4"></h1>
+        <table class="table table-dark">
             <thead>
                 <tr>
                     <th scope="col">Make</th>
                     <th scope="col">Model</th>
-                    <th scope="col">Actions</th>  <!-- Added a new column for actions -->
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,15 +98,14 @@
                     <td>{{ car.model }}</td>
                     <td>
                         <a href="{{ url_for('modify_wishlist', listing_id=car.id) }}" class="btn btn-primary">Modify</a>
-                    </td>  <!-- Modify button -->
+                        <form action="{{ url_for('delete_listing', listing_id=car.id) }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>No items found in wishlist.</p>
-    {% endif %}
     </div>
 </body>
 </html>
-
