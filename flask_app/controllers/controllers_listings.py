@@ -197,16 +197,22 @@ def favorite_listing(listing_id):
     print("Listing ID:", listing_id)
     return jsonify({'success': True})
 
+
 @app.route('/wishlist', methods=['GET', 'POST'])
 @login_required
 def wishlist():
     if request.method == 'POST':
         make = request.form.get('make')
         model = request.form.get('model')
+
+        if len(make) < 2 or len(model) < 2:
+            return render_template('wishlist.html', error="Make and model must be at least 2 characters long")
+
         Listings.create_listing(make, model)
         return redirect(url_for('wishlist'))
     else:
         return render_template('wishlist.html')
+
 
 @app.route('/view_wishlist', methods=['GET'])
 @login_required

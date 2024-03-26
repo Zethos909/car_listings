@@ -88,6 +88,11 @@
             <div class="col-md-6">
                 <div class="form-container">
                     <h2 class="form-title"></h2>
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
                     <form action="{{ url_for('wishlist') }}" method="POST">
                         <div class="mb-3">
                             <label for="make" class="form-label">Make:</label>
