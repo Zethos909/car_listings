@@ -8,6 +8,7 @@ from werkzeug.security import check_password_hash
 from functools import wraps
 import requests
 from flask import jsonify
+import json
 
 
 def login_required(view_func):
@@ -19,6 +20,9 @@ def login_required(view_func):
         return view_func(*args, **kwargs)
     return wrapped_view
 
+import json
+from urllib.parse import urlparse
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -26,17 +30,28 @@ def dashboard():
     api_key = 'ZrQEPSkKcmRnZXJtYW45OUBnbWFpbC5jb20='
     make = request.args.get('make')
     model = request.args.get('model')
+    state = request.args.get('state')
     params = {'apikey': api_key}
     if make:
         params['make'] = make
     if model:
         params['model'] = model
+    if state:
+        params['state'] = state
     response = requests.get(api_endpoint, params=params)
     if response.status_code == 200:
         data = response.json()
+        # Ensure clickoffUrl values are absolute URLs
+        for listing in data.get('records', []):
+            clickoff_url = listing.get('clickoffUrl')
+            if clickoff_url and not urlparse(clickoff_url).scheme:
+                listing['clickoffUrl'] = 'https://' + clickoff_url
+        # Log the data to verify its contents
         return render_template('dashboard.html', data=data)
     else:
         return 'Error: Unable to fetch data from the API'
+
+
 
 
 @app.route('/logout', methods=['GET', 'POST'])
